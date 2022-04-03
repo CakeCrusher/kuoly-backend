@@ -1,0 +1,7 @@
+/node_modules
+/dist
+/build
+bucket-key.json
+/images/*
+.env
+yarn.lock

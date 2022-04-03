@@ -1,0 +1,39 @@
+{
+  "name": "kuoly-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc & npm run copy-schemas & node dist\\index.js",
+    "copy-schemas": "cpx ./**/*.graphql dist",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.ts",
+    "build": "tsc"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@apollo/client": "^3.5.10",
+    "@google-cloud/storage": "^5.18.3",
+    "@graphql-tools/schema": "^8.3.6",
+    "@types/graphql": "^14.5.0",
+    "apollo-server-express": "^3.6.7",
+    "cheerio": "^1.0.0-rc.10",
+    "color-thief-jimp": "^2.0.2",
+    "cpx": "^1.5.0",
+    "dotenv": "^16.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.3",
+    "graphql-subscriptions": "^2.0.0",
+    "graphql-upload": "^13.0.0",
+    "jimp": "^0.16.1",
+    "jsonwebtoken": "^8.5.1",
+    "nodemon": "^2.0.15",
+    "pg": "^8.7.3",
+    "subscriptions-transport-ws": "^0.11.0",
+    "ts-node": "^10.7.0",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.6.3",
+    "uuid": "^8.3.2"
+  }
+}
