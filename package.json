@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc & npm run copy-schemas & node dist/index.js",
-    "copy-schemas": "cpx ./**/*.graphql dist",
+    "copy-schemas": "$(npm bin)/cpx ./**/*.graphql dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.ts",
     "build": "tsc"
