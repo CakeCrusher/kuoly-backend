@@ -4,11 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsc & $(npm bin)/cpx ./**/*.graphql dist & node dist/index.js",
-    "copy-schemas": "$(npm bin)/cpx ./**/*.graphql dist",
+    "start": "tsc & cpx ./**/*.graphql dist & node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.ts",
-    "build": "tsc"
+    "dev": "nodemon index.ts"
   },
   "author": "",
   "license": "ISC",
