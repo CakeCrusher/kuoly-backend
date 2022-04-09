@@ -1,11 +1,10 @@
 <img src="https://pbs.twimg.com/media/FGSSACWXEAcy0Qy?format=jpg&name=small" align="left"
      alt="Kuoly icon" width="60" style="border-radius: 10px;" height="60">
 
-# Kuoly
+# [Kuoly](https://www.kuoly.com/)
 
 Easy, custom, shareable
 product lists.
 
-<h3><a href="https://www.kuoly.com/" target="_blank" >
-    Link
-</a></h3>
+### [Monorepo](https://github.com/CakeCrusher/kuoly)
+### [Client](https://github.com/CakeCrusher/kuoly-client)
