@@ -66,7 +66,7 @@ export const createListing = async (
     let updatedListing: Listing = updateListingRes.rows[0];
     notExist("Listing", updatedListing);
 
-    if (!isUrl && !ignore_link) {
+    if (!isUrl && !ignore_link && features.item_url) {
       const title = extractDomain(features.item_url);
       const newLisnkRes: QueryResult<Link> = await db.query(
         "INSERT INTO links (listing_id, url, title) VALUES ($1, $2, $3) RETURNING *",

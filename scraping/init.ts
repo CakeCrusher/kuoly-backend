@@ -15,7 +15,7 @@ const scrapeListing = async (text: string): Promise<ScrapedFeatures> => {
     } else {
       features = await scrapeListingByName(text);
     }
-    if (features.name.length === 70) {
+    if (features.name && features.name.length === 70) {
       const newName = features.name.slice(0, 70).split(" ");
       newName.pop();
       features.name = newName.join(" ") + "...";

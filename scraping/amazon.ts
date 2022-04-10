@@ -6,45 +6,54 @@ import { UserInputError } from "apollo-server-express";
 export const scrapeListingByName = async (
   name: string
 ): Promise<ScrapedFeatures> => {
+  let features: ScrapedFeatures = {
+    item_url: null,
+    name: null,
+    image_url: null,
+    price: null,
+    description: null,
+  };
   const timeStart = Date.now();
   const formattedItem = encodeURIComponent(name).replace(/%20/g, "+");
   const URL = `https://www.amazon.com/s?k=${formattedItem}`;
   const amazon_res = await fetch(URL);
-  console.log("amazon_res: ", amazon_res);
-  const html = await amazon_res.text();
-  const $ = cheerio.load(html);
-  const head = $(".s-asin");
-  let features: ScrapedFeatures;
-  for (let i = 0; i < head.length; i++) {
-    const item = head[i];
-    const isSponsored = $(item).find(".s-label-popover-default").length > 0;
-    if (!isSponsored && !features) {
-      const img = $(item).find(".s-image").attr("src");
-      const itemName = $(item).find("h2 span").text();
+  console.log("amazon_res: ", amazon_res.status);
+  try {
+    const html = await amazon_res.text();
+    const $ = cheerio.load(html);
+    const head = $(".s-asin");
+    let features: ScrapedFeatures;
+    for (let i = 0; i < head.length; i++) {
+      const item = head[i];
+      const isSponsored = $(item).find(".s-label-popover-default").length > 0;
+      if (!isSponsored && !features) {
+        const img = $(item).find(".s-image").attr("src");
+        const itemName = $(item).find("h2 span").text();
 
-      const price = parseFloat(
-        $(item).find(".a-price-whole").text().replace(",", "")
-      );
-      const itemURL = `https://www.amazon.com${$(item)
-        .find(".a-link-normal")
-        .attr("href")}`;
+        const price = parseFloat(
+          $(item).find(".a-price-whole").text().replace(",", "")
+        );
+        const itemURL = `https://www.amazon.com${$(item)
+          .find(".a-link-normal")
+          .attr("href")}`;
 
-      // the price of description if a 3 second delay
-      // features = await scrapeListingByUrl(itemURL);
-      features = {
-        item_url: itemURL,
-        name: itemName,
-        image_url: img,
-        price: price || null,
-        description: itemName,
-      };
-      break;
+        // the price of description if a 3 second delay
+        // features = await scrapeListingByUrl(itemURL);
+        features = {
+          item_url: itemURL,
+          name: itemName,
+          image_url: img,
+          price: price || null,
+          description: itemName,
+        };
+        break;
+      }
     }
-  }
 
-  const timeEnd = Date.now();
-  console.log(`Scraping ${name} took ${timeEnd - timeStart}ms`);
-  console.log(features);
+    const timeEnd = Date.now();
+    console.log(`Scraping ${name} took ${timeEnd - timeStart}ms`);
+    console.log(features);
+  } catch {}
 
   return features;
 };

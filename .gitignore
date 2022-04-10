@@ -5,3 +5,4 @@ bucket-key.json
 /images/*
 .env
 yarn.lock
+app.yaml
