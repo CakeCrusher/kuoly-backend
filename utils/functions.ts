@@ -147,7 +147,7 @@ export const isUrl = (text: string): Boolean => {
 };
 
 export const extractDomain = (url: string): string => {
-  let domain = "https://www.amazon.com/";
+  let domain = "www.amazon.com";
   try {
     domain = url.split("/")[2];
   } catch {}

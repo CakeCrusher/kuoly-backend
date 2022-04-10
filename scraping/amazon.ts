@@ -8,7 +8,7 @@ export const scrapeListingByName = async (
 ): Promise<ScrapedFeatures> => {
   const timeStart = Date.now();
   const formattedItem = encodeURIComponent(name).replace(/%20/g, "+");
-  const URL = `https://www.amazon.com/s?k=${formattedItem}&ref=nb_sb_noss_2`;
+  const URL = `https://www.amazon.com/s?k=${formattedItem}`;
   const amazon_res = await fetch(URL);
   const html = await amazon_res.text();
   const $ = cheerio.load(html);
