@@ -147,7 +147,10 @@ export const isUrl = (text: string): Boolean => {
 };
 
 export const extractDomain = (url: string): string => {
-  const domain = url.split("/")[2];
+  let domain = "https://www.amazon.com/";
+  try {
+    domain = url.split("/")[2];
+  } catch {}
   let title: string[] | string = domain.split(".");
   if (title[0] === "www") title.shift();
   title.pop();
