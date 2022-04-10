@@ -10,6 +10,7 @@ export const scrapeListingByName = async (
   const formattedItem = encodeURIComponent(name).replace(/%20/g, "+");
   const URL = `https://www.amazon.com/s?k=${formattedItem}`;
   const amazon_res = await fetch(URL);
+  console.log("amazon_res: ", amazon_res);
   const html = await amazon_res.text();
   const $ = cheerio.load(html);
   const head = $(".s-asin");
