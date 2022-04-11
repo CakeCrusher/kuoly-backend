@@ -74,6 +74,9 @@ export const getFullCatalogues = async (
   if (!ignoreErrors) {
     notExist("Catalogue", fullCatalogues.rows[0]);
   }
+  if (ignoreErrors && !fullCatalogues.rows[0]) {
+    return [];
+  }
 
   return fullCatalogues.rows;
 };
