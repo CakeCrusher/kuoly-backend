@@ -31,7 +31,19 @@ const catalogueResolvers = {
       let catalogues: Catalogue[];
 
       if (args.id && args.edit_id) {
-        catalogues = await getFullCatalogues(args.edit_id, "edit_id", true);
+        catalogues = await getFullCatalogues(args.id, "id", true);
+        if (catalogues.length === 0) {
+          catalogues = await getFullCatalogues(args.edit_id, "edit_id", true);
+          if (catalogues.length === 0) {
+            throw new UserInputError("No catalogues found");
+          }
+        } else {
+          catalogues = await getFullCatalogues(
+            catalogues[0].edit_id,
+            "edit_id",
+            true
+          );
+        }
       } else if (args.id) {
         catalogues = await getFullCatalogues(args.id);
       } else if (args.edit_id) {
