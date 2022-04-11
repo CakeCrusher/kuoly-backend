@@ -65,12 +65,15 @@ export const handleFile = async (
 
 export const getFullCatalogues = async (
   keyValue: string,
-  key?: string
+  key?: string,
+  ignoreErrors?: boolean
 ): Promise<Catalogue[]> => {
   const fullCatalogues: QueryResult<Catalogue> = await db.query(
     fullCatalogueQuery(`WHERE c.${key || "id"} = '${keyValue}'`)
   );
-  notExist("Catalogue", fullCatalogues.rows[0]);
+  if (!ignoreErrors) {
+    notExist("Catalogue", fullCatalogues.rows[0]);
+  }
 
   return fullCatalogues.rows;
 };

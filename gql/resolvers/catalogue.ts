@@ -30,7 +30,9 @@ const catalogueResolvers = {
     ): Promise<Catalogue[]> => {
       let catalogues: Catalogue[];
 
-      if (args.id) {
+      if (args.id && args.edit_id) {
+        catalogues = await getFullCatalogues(args.edit_id, "edit_id", true);
+      } else if (args.id) {
         catalogues = await getFullCatalogues(args.id);
       } else if (args.edit_id) {
         catalogues = await getFullCatalogues(args.edit_id, "edit_id");
