@@ -44,6 +44,7 @@ const catalogueResolvers = {
             true
           );
         }
+        console.log("catalogues", catalogues);
       } else if (args.id) {
         catalogues = await getFullCatalogues(args.id);
       } else if (args.edit_id) {
