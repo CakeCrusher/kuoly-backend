@@ -26,17 +26,21 @@ const catalogueResolvers = {
   Query: {
     catalogues: async (
       _: null,
-      args: { id: string; edit_id: string }
-    ): Promise<Catalogue[]> => {
-      let catalogues: Catalogue[];
-
-      if (args.id && args.edit_id) {
+      args: { id: string; edit_id: string, all: boolean }
+    ): Promise<Catalogue[] | CatalogueListItem[]> => {
+      let catalogues: Catalogue[] | CatalogueListItem[];
+      if (args.all) {
+        const cataloguesQuery: QueryResult<CatalogueListItem> = await db.query(
+          myCataloguesQuery(`WHERE c.status != 'private' ORDER BY c.views DESC  LIMIT 5`)
+        );
+        catalogues = cataloguesQuery.rows; 
+      } else if (args.id && args.edit_id) {
         catalogues = await getFullCatalogues(args.id, "id", true);
         if (catalogues.length === 0) {
           catalogues = await getFullCatalogues(args.edit_id, "edit_id", true);
           if (catalogues.length === 0) {
             throw new UserInputError("No catalogues found");
-          }
+          } 
         } else {
           catalogues = await getFullCatalogues(
             catalogues[0].edit_id,

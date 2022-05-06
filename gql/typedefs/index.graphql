@@ -1,6 +1,6 @@
 type Query {
   getJwt: String!
-  catalogues(id: ID, edit_id: String): [Catalogue!]
+  catalogues(id: ID, edit_id: String, all: Boolean): [Catalogue!]
   myCatalogues: [Catalogue!]
   getMetrics(user_id: String, type: String): [Metric!]
   getFeedback: [Feedback!]
