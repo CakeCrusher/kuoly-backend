@@ -1,17 +1,18 @@
 import { ScrapedFeatures } from "../types";
 import { isUrl } from "../utils/functions";
-import { scrapeListingByName, scrapeListingByUrl } from "./amazon";
+// import { scrapeListingByName, scrapeListingByUrl } from "./amazon";
+import { scrapeListingByName } from "./ebay";
 import { generalScraper } from "./general";
 
 const scrapeListing = async (text: string): Promise<ScrapedFeatures> => {
   let features;
   try {
     if (isUrl(text)) {
-      if (text.includes(".amazon.co")) {
-        features = await scrapeListingByUrl(text);
-      } else {
-        features = await generalScraper(text);
-      }
+      // if (text.includes(".amazon.co")) {
+      //   features = await scrapeListingByUrl(text);
+      // } else {
+      features = await generalScraper(text);
+      // }
     } else {
       features = await scrapeListingByName(text);
     }
