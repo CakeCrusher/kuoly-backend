@@ -22,11 +22,11 @@ export const scrapeListingByName = async (
     const html = await amazon_res.text();
     const $ = cheerio.load(html);
     const head = $(".s-asin");
-    let features: ScrapedFeatures;
+    let features_scraped: ScrapedFeatures;
     for (let i = 0; i < head.length; i++) {
       const item = head[i];
       const isSponsored = $(item).find(".s-label-popover-default").length > 0;
-      if (!isSponsored && !features) {
+      if (!isSponsored && !features_scraped) {
         const img = $(item).find(".s-image").attr("src");
         const itemName = $(item).find("h2 span").text();
 
@@ -39,7 +39,7 @@ export const scrapeListingByName = async (
 
         // the price of description if a 3 second delay
         // features = await scrapeListingByUrl(itemURL);
-        features = {
+        features_scraped = {
           item_url: itemURL,
           name: itemName,
           image_url: img,
@@ -52,9 +52,9 @@ export const scrapeListingByName = async (
 
     const timeEnd = Date.now();
     console.log(`Scraping ${name} took ${timeEnd - timeStart}ms`);
-    console.log(features);
+    console.log(features_scraped);
+    return features_scraped;
   } catch {}
-
   return features;
 };
 
